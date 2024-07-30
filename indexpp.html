@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product-image {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .buy-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Panel System</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/250" alt="Product Image" class="product-image">
+                    <h3 class="mt-3">Kakiva Leave-In Conditioner</h3>
+                    <p>250ml</p>
+                    <p class="price">$10.00</p>
+                    <button class="buy-button" onclick="payWithPaystack()">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        function payWithPaystack() {
+            var handler = PaystackPop.setup({
+                key: 'pk_test_73386dbc8041294ad5d40607ae2599a01a4522c9', // Replace with your Paystack public key
+                email: 'customer@example.com', // Replace with the user's email address
+                amount: 1000, // Amount in kobo (i.e., $10.00 = 1000 kobo)
+                currency: 'NGN', // Currency code (NGN for Nigerian Naira)
+                callback: function(response) {
+                    alert('Transaction completed! Reference: ' + response.reference);
+                    // Redirect to panel request page
+                    window.location.href = 'panel.html';
+                },
+                onClose: function() {
+                    alert('Transaction was not completed.');
+                }
+            });
+            handler.openIframe();
+        }
+    </script>
+</body>
+</html>
